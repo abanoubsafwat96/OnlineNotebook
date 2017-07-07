@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Online Notebook</string>
+
+    <string name="sign_out">Sign Out</string>
+    <string name="no_notes_widget">There are no notes here</string>
+    <string name="title_activity_detailed">Edit note</string>
+    <string name="title_adding_note_activity">Add new note</string>
+    <string name="loading_note">Loading notes....</string>
+    <string name="write_your_note_here">Write your note here.....</string>
+    <string name="title">Title</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="new_user_sign_up"><u>New user? Sign Up</u></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="have_an_account_sign_in"><u>Have an account? Sign In</u></string>
+    <string name="no_notes_here">There are no notes here .. Add some notes from button down</string>
+    <string name="write_title_note_first">Write the title and the note first</string>
+    <string name="successfully_added">Successfully added</string>
+    <string name="successfully_edited">Successfully edited</string>
+    <string name="successfully_deleted">Successfully deleted</string>
+    <string name="wrong_email_password">Wrong Email or Password</string>
+    <string name="authentication_failed">Authentication failed || Wrong email or password</string>
+    <string name="check_internet_connection">Check your internet connection</string>
+    <string name="edit_note">Click to edit this note</string>
+    <string name="willnot_lose_notes">You will not lose your notes</string>
+
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+
+</resources>

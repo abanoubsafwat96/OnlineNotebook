@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"الملاحظات عبر الإنترنت "</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="authentication_failed">فشلت المصادقة || بريد إلكتروني غير صحيح أو كلمة مرور غير صحيحة</string>
+    <string name="check_internet_connection">تحقق من اتصالك بالإنترنت</string>
+    <string name="have_an_account_sign_in"><u>لديك حساب؟ تسجيل الدخول</u></string>
+    <string name="loading_note">جار تحميل الملاحظات ....</string>
+    <string name="new_user_sign_up"><u>مستخدم جديد؟ انشاء حساب</u></string>
+    <string name="no_notes_here">لا توجد ملاحظات هنا .. إضافة بعض الملاحظات من الزر ألاسفل</string>
+    <string name="no_notes_widget">لا توجد ملاحظات هنا</string>
+    <string name="password">كلمة المرور</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="sign_up">انشاء حساب</string>
+    <string name="successfully_added">تمت الاضافة بنجاح</string>
+    <string name="successfully_deleted">تم الحذف بنجاح</string>
+    <string name="successfully_edited">تم التعديل بنجاح</string>
+    <string name="title">العنوان</string>
+    <string name="title_activity_detailed">تعديل الملاحظة</string>
+    <string name="title_adding_note_activity">اضافة ملاحظة جديدة</string>
+    <string name="write_title_note_first">اكتب العنوان والملاحظة اولا</string>
+    <string name="write_your_note_here">اكتب ملاحظتك هنا.....</string>
+    <string name="wrong_email_password">بريد إلكتروني خاطئ أو كلمة مرور غير صحيحة</string>
+    <string name="edit_note">اضغط لتعديل هذة الملاحضة</string>
+    <string name="willnot_lose_notes">لن تفقد الملاحظات الخاصة بك</string>
+</resources>

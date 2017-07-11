@@ -56,15 +56,12 @@ public class MainActivity extends AppCompatActivity {
         if (Utilities.isNetworkAvailable(this)) {
             firebaseDatabase = FirebaseDatabase.getInstance();
             currentUserEmail = Utilities.getCurrentEmail();
-            Log.e("onCreate: ", "online-notebook/" + currentUserEmail);
             databaseReference = firebaseDatabase.getReference().child("online-notebook/" + currentUserEmail);
 
-            //To read data at a path and listen for changes
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
+
                     list = Utilities.getAllNotes(dataSnapshot);
                     progressDialog.dismiss();
                     fillRecyclerView(list);
@@ -72,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    // Failed to read value
                 }
             });
         } else {
@@ -112,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true); //exit app
+        moveTaskToBack(true);
     }
 
     private void fillRecyclerView(ArrayList<Note> notesList) {

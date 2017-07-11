@@ -3,7 +3,8 @@
     <dimen name="top_bottom_vert_padding">32dp</dimen>
     <dimen name="left_right_horiz_padding">64dp</dimen>
     <dimen name="fab_margin">5dp</dimen>
-    <integer name="recycler_column_count">4</integer>
     <dimen name="recycler_top_bottom_vert_padding">32dp</dimen>
+
+    <integer name="recycler_column_count">4</integer>
 
 </resources>

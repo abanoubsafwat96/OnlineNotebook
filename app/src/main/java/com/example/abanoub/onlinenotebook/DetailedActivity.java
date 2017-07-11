@@ -8,21 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.abanoub.onlinenotebook.widget.WidgetProvider;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,11 +38,9 @@ public class DetailedActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            // received note from MainActivity
             note = (Note) getIntent().getSerializableExtra("note");
         } catch (Exception e) {
-            // received note from Widget
-            // getSerializableExtra() will throw exception if this note came from widget
+
             if (note == null) {
                 note = new Note();
                 note.title = getIntent().getExtras().getString("title");
@@ -85,7 +77,6 @@ public class DetailedActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(titleED.getText()) || TextUtils.isEmpty(noteED.getText()))
                     Toast.makeText(this, R.string.write_title_note_first, Toast.LENGTH_SHORT).show();
                 else {
-                    //update widgets
                     Intent intent2 = new Intent(this, WidgetProvider.class);
                     intent2.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                     int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));
@@ -110,7 +101,6 @@ public class DetailedActivity extends AppCompatActivity {
                 return true;
 
             case R.id.delete:
-                //update widgets
                 Intent intent2 = new Intent(this, WidgetProvider.class);
                 intent2.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                 int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));

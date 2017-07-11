@@ -14,7 +14,6 @@ public class Note implements Serializable{
     public String pushId;
 
     public Note() {
-        // Default constructor required to be empty for calls to DataSnapshot.getValue(User.class) (for using firebase)
     }
 
     public Note(String title,String note,String pushId){

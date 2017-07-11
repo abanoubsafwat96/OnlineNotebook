@@ -1,7 +1,5 @@
 package com.example.abanoub.onlinenotebook;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -18,8 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.abanoub.onlinenotebook.widget.WidgetProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -115,11 +111,9 @@ public class SignInActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
                                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(intent);
                                         } else {
-                                            // If sign in fails, display a message to the user.
                                             Toast.makeText(SignInActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -137,17 +131,14 @@ public class SignInActivity extends AppCompatActivity {
                     if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText()))
                         Toast.makeText(SignInActivity.this, R.string.wrong_email_password, Toast.LENGTH_SHORT).show();
                     else {
-                        Log.d("onClick: ", email.getText().toString());
                         firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                                 .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
                                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(intent);
                                         } else {
-                                            // If sign in fails, display a message to the user.
                                             Toast.makeText(SignInActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -178,7 +169,6 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             Intent intent=new Intent(SignInActivity.this, MainActivity.class);
@@ -187,6 +177,6 @@ public class SignInActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true); //exit app
+        moveTaskToBack(true);
     }
 }

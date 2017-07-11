@@ -33,14 +33,22 @@
             android:name=".AddingNoteActivity"
             android:label="@string/title_adding_note_activity"></activity>
 
+
         <service
-            android:exported="false"
             android:name=".ReminderJobService"
+            android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
+
+
+        <provider
+            android:name="com.example.abanoub.onlinenotebook.localData.NotesProvider"
+            android:authorities="com.example.abanoub.onlinenotebook.localData"
+            android:exported="false" />
+
 
         <receiver android:name=".widget.WidgetProvider">
             <intent-filter>

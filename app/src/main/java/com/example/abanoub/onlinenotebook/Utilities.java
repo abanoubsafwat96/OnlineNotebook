@@ -18,18 +18,21 @@ import java.util.Map;
 public class Utilities {
     private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+    public static FirebaseUser getCurrentUser() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user == null)
+            return null;
+
+        return user;
+    }
+
     public static String getCurrentEmail() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user == null)
+            return null;
         String currentUserEmail = user.getEmail().replace(".", "_");
 
         return currentUserEmail;
-    }
-
-    public static String getCurrentUid() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        String currentUserUid = user.getUid();
-
-        return currentUserUid;
     }
 
     public static ArrayList<Note> getAllNotes(DataSnapshot dataSnapshot) {

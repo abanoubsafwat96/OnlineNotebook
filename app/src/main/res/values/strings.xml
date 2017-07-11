@@ -24,6 +24,10 @@
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="edit_note">Click to edit this note</string>
     <string name="willnot_lose_notes">You will not lose your notes</string>
+    <string name="must_sign_in">You must sign in first</string>
+    <string name="successfully_added_connect_to_save">Successfully added || Do not forget to connect the network soon to save this note</string>
+    <string name="successfully_edited_connect_to_sync">Successfully edited || Do not forget to connect the network soon to sync this note</string>
+    <string name="successfully_deleted_connect_to_sync">Successfully deleted || Do not forget to connect the network soon to sync this note</string>
 
     <item name="visible" type="id"/>
     <item name="masked" type="id"/>

@@ -2,7 +2,9 @@ package com.example.abanoub.onlinenotebook;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    CoordinatorLayout coordinatorLayout;
     RecyclerView recyclerView;
     FloatingActionButton floatingActionButton;
     TextView textView;
@@ -38,40 +41,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage(getResources().getString(R.string.loading_note));
         progressDialog.show();
 
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         textView = (TextView) findViewById(R.id.noNotes);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        currentUserEmail = Utilities.getCurrentEmail();
-        Log.e("onCreate: ", "online-notebook/" + currentUserEmail);
-        databaseReference = firebaseDatabase.getReference().child("online-notebook/" + currentUserEmail);
+        if (Utilities.isNetworkAvailable(this)) {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            currentUserEmail = Utilities.getCurrentEmail();
+            Log.e("onCreate: ", "online-notebook/" + currentUserEmail);
+            databaseReference = firebaseDatabase.getReference().child("online-notebook/" + currentUserEmail);
 
-        //To read data at a path and listen for changes
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                list = Utilities.getAllNotes(dataSnapshot);
-                progressDialog.dismiss();
-                fillRecyclerView(list);
-            }
+            //To read data at a path and listen for changes
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    list = Utilities.getAllNotes(dataSnapshot);
+                    progressDialog.dismiss();
+                    fillRecyclerView(list);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-            }
-        });
-
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                }
+            });
+        } else {
+            progressDialog.dismiss();
+            Snackbar.make(coordinatorLayout, R.string.check_internet_connection, Snackbar.LENGTH_LONG).show();
+        }
         floatingActionButton.setOnClickListener(new View.OnClickListener()
 
         {
@@ -95,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
                 FirebaseAuth.getInstance().signOut();
+
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 return true;
             default:
@@ -114,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             textView.setVisibility(View.GONE);
 
             int columnCount = getResources().getInteger(R.integer.recycler_column_count);
-            RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+            RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
             Adapter adapter = new Adapter(this, notesList);
             recyclerView.setAdapter(adapter);

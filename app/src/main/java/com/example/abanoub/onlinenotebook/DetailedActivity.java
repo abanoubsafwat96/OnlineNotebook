@@ -1,5 +1,7 @@
 package com.example.abanoub.onlinenotebook;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.abanoub.onlinenotebook.widget.WidgetProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,11 +40,22 @@ public class DetailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        note = (Note) getIntent().getSerializableExtra("note");
-
+        try {
+            // received note from MainActivity
+            note = (Note) getIntent().getSerializableExtra("note");
+        } catch (Exception e) {
+            // received note from Widget
+            // getSerializableExtra() will throw exception if this note came from widget
+            if (note == null) {
+                note = new Note();
+                note.title = getIntent().getExtras().getString("title");
+                note.note = getIntent().getExtras().getString("note");
+                note.pushId = getIntent().getExtras().getString("pushId");
+            }
+        }
         titleED = (EditText) findViewById(R.id.title);
         noteED = (EditText) findViewById(R.id.note);
 
@@ -70,28 +85,61 @@ public class DetailedActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(titleED.getText()) || TextUtils.isEmpty(noteED.getText()))
                     Toast.makeText(this, R.string.write_title_note_first, Toast.LENGTH_SHORT).show();
                 else {
+                    //update widgets
+                    Intent intent2 = new Intent(this, WidgetProvider.class);
+                    intent2.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                    int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));
+                    intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                    sendBroadcast(intent2);
+
                     String key = note.pushId;
                     Note note2 = new Note(titleED.getText().toString(), noteED.getText().toString(), note.pushId);
                     Map<String, Object> postValues = note2.toMap();
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put(key, postValues);
                     databaseReference.updateChildren(childUpdates);
-                    Toast.makeText(DetailedActivity.this, "Successfully edited", Toast.LENGTH_SHORT).show();
+
+                    if (Utilities.isNetworkAvailable(this))
+                        Toast.makeText(this, R.string.successfully_edited, Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(this, R.string.successfully_edited_connect_to_sync, Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(DetailedActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 return true;
 
             case R.id.delete:
+                //update widgets
+                Intent intent2 = new Intent(this, WidgetProvider.class);
+                intent2.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));
+                intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                sendBroadcast(intent2);
 
                 databaseReference.child(note.pushId).setValue(null);
-                Toast.makeText(this, R.string.successfully_deleted, Toast.LENGTH_SHORT).show();
+
+                if (Utilities.isNetworkAvailable(this))
+                    Toast.makeText(this, R.string.successfully_deleted, Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(this, R.string.successfully_deleted_connect_to_sync, Toast.LENGTH_LONG).show();
+
                 Intent intent = new Intent(DetailedActivity.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = Utilities.getCurrentUser();
+        if (user == null) {
+            Toast.makeText(this, R.string.must_sign_in, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(DetailedActivity.this, SignInActivity.class));
         }
     }
 }

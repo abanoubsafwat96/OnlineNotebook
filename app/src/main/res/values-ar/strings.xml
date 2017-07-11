@@ -24,4 +24,9 @@
     <string name="wrong_email_password">بريد إلكتروني خاطئ أو كلمة مرور غير صحيحة</string>
     <string name="edit_note">اضغط لتعديل هذة الملاحضة</string>
     <string name="willnot_lose_notes">لن تفقد الملاحظات الخاصة بك</string>
+    <string name="must_sign_in">قم بتسجيل الدخول أولا</string>
+    <string name="successfully_added_connect_to_save">تمت الاضافة بنجاح || لا تنسي الاتصال بالانترنت لكي تحفظ الملاحظات الخاصة بك</string>
+    <string name="successfully_edited_connect_to_sync">تم التعديل بنجاح || لا تنسي الاتصال بالانترنت لكي تزامن الملاحظات الخاصة بك</string>
+    <string name="successfully_deleted_connect_to_sync">تم الحذف بنجاح || لا تنسي الاتصال بالانترنت لكي تزامن الملاحظات الخاصة بك</string>
+
 </resources>

@@ -1,7 +1,11 @@
 package com.example.abanoub.onlinenotebook;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.abanoub.onlinenotebook.widget.WidgetProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -62,13 +67,24 @@ public class AddingNoteActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(titleED.getText()) || TextUtils.isEmpty(noteED.getText()))
                     Toast.makeText(this, R.string.write_title_note_first, Toast.LENGTH_SHORT).show();
                 else {
+                    //update widgets
+                    Intent intent2 = new Intent(this, WidgetProvider.class);
+                    intent2.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                    int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));
+                    intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                    sendBroadcast(intent2);
+
                     String pushId = databaseReference.push().getKey();
                     Log.e("onOptionsItemsel-adding", pushId);
 
                     Note note = new Note(titleED.getText().toString(), noteED.getText().toString(), pushId);
                     databaseReference.child(pushId).setValue(note);
 
+                    if (Utilities.isNetworkAvailable(this))
                     Toast.makeText(this, R.string.successfully_added, Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(this, R.string.successfully_added_connect_to_save, Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(AddingNoteActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

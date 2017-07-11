@@ -3,6 +3,7 @@ package com.example.abanoub.onlinenotebook.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -63,5 +64,19 @@ public class WidgetProvider extends AppWidgetProvider {
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        //update widgets
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        if (appWidgetManager != null) {
+
+            ComponentName name = new ComponentName(context, WidgetProvider.class);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(name);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.listView);
+        }
     }
 }

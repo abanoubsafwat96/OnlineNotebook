@@ -18,11 +18,19 @@ import com.example.abanoub.onlinenotebook.widget.WidgetProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class AddingNoteActivity extends AppCompatActivity {
 
+    @BindView(R.id.title)
     EditText titleED;
+    @BindView(R.id.note)
     EditText noteED;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     String currentUserEmail;
@@ -32,11 +40,8 @@ public class AddingNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_note);
 
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
-        titleED = (EditText) findViewById(R.id.title);
-        noteED = (EditText) findViewById(R.id.note);
 
         titleED.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Roboto-Bold.ttf"));
         noteED.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Roboto-Regular.ttf"));

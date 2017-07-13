@@ -22,38 +22,43 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SignInActivity extends AppCompatActivity {
 
+    @BindView(R.id.email)
     EditText email;
+    @BindView(R.id.password)
     EditText password;
+    @BindView(R.id.signin)
     Button signIn;
+    @BindView(R.id.signup)
     Button signUp;
+    @BindView(R.id.signInText)
     TextView signInText;
+    @BindView(R.id.signUpText)
     TextView signUpText;
+    @BindView(R.id.signInLinear)
     LinearLayout signInLinear;
+    @BindView(R.id.signUpLinear)
     LinearLayout signUpLinear;
-    FirebaseAuth firebaseAuth;
+    @BindView(R.id.collapsing)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+        ButterKnife.bind(this);
+
         collapsingToolbarLayout.setTitleEnabled(true);
-
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
-        signIn = (Button) findViewById(R.id.login);
-        signUp = (Button) findViewById(R.id.signup);
-        signInText = (TextView) findViewById(R.id.signInText);
-        signUpText = (TextView) findViewById(R.id.signUpText);
-        signInLinear= (LinearLayout) findViewById(R.id.signInLinear);
-        signUpLinear= (LinearLayout) findViewById(R.id.signUpLinear);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

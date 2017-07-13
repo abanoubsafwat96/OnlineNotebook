@@ -28,6 +28,9 @@
     <string name="successfully_added_connect_to_save">Successfully added || Do not forget to connect the network soon to save this note</string>
     <string name="successfully_edited_connect_to_sync">Successfully edited || Do not forget to connect the network soon to sync this note</string>
     <string name="successfully_deleted_connect_to_sync">Successfully deleted || Do not forget to connect the network soon to sync this note</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
 
     <item name="visible" type="id"/>
     <item name="masked" type="id"/>

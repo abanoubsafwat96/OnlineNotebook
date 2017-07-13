@@ -24,34 +24,39 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.coordinator)
     CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
+    @BindView(R.id.noNotes)
     TextView textView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     String currentUserEmail;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    ArrayList<Note> list = new ArrayList<>();
     ProgressDialog progressDialog;
+    ArrayList<Note> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage(getResources().getString(R.string.loading_note));
         progressDialog.show();
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-        textView = (TextView) findViewById(R.id.noNotes);
 
         if (Utilities.isNetworkAvailable(this)) {
             firebaseDatabase = FirebaseDatabase.getInstance();

@@ -20,10 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailedActivity extends AppCompatActivity {
 
+    @BindView(R.id.title)
     EditText titleED;
+    @BindView(R.id.note)
     EditText noteED;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     String currentUserEmail;
@@ -34,7 +42,7 @@ public class DetailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         try {
@@ -48,8 +56,6 @@ public class DetailedActivity extends AppCompatActivity {
                 note.pushId = getIntent().getExtras().getString("pushId");
             }
         }
-        titleED = (EditText) findViewById(R.id.title);
-        noteED = (EditText) findViewById(R.id.note);
 
         titleED.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Roboto-Bold.ttf"));
         noteED.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Roboto-Regular.ttf"));

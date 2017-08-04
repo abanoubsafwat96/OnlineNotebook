@@ -43,9 +43,11 @@ public class Utilities {
 
         ArrayList<Note> list = new ArrayList<>();
 
+        //iterate through each note, ignoring their UID
         if (dataSnapShot != null) {
             for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
 
+                //Get note map
                 Map singleNote = (Map) entry.getValue();
                 Note noteObj = new Note();
                 noteObj.title = (String) singleNote.get("title");

@@ -116,9 +116,11 @@ public class SignInActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
                                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(intent);
                                         } else {
+                                            // If sign in fails, display a message to the user.
                                             Toast.makeText(SignInActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -141,9 +143,11 @@ public class SignInActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
                                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(intent);
                                         } else {
+                                            // If sign in fails, display a message to the user.
                                             Toast.makeText(SignInActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -174,6 +178,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             Intent intent=new Intent(SignInActivity.this, MainActivity.class);
@@ -182,6 +187,6 @@ public class SignInActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        moveTaskToBack(true); //exit app
     }
 }

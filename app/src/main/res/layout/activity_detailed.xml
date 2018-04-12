@@ -54,7 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/write_your_note_here"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:gravity="top" />
         </android.support.design.widget.TextInputLayout>
 
 

@@ -35,24 +35,16 @@ public class Utilities {
 
     public static ArrayList<Note> getAllNotes(DataSnapshot dataSnapshot) {
 
-        ArrayList<Note> notes_list = getAllNotesHelper((Map<String, Object>) dataSnapshot.getValue());
-        return notes_list;
-    }
-
-    private static ArrayList<Note> getAllNotesHelper(Map<String, Object> dataSnapShot) {
-
         ArrayList<Note> list = new ArrayList<>();
 
-        //iterate through each note, ignoring their UID
-        if (dataSnapShot != null) {
-            for (Map.Entry<String, Object> entry : dataSnapShot.entrySet()) {
+        //iterate through each Msg, ignoring their UID
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                //Get note map
-                Map singleNote = (Map) entry.getValue();
                 Note noteObj = new Note();
-                noteObj.title = (String) singleNote.get("title");
-                noteObj.note = (String) singleNote.get("note");
-                noteObj.pushId = (String) singleNote.get("pushId");
+                noteObj.title = child.getValue(Note.class).title;
+                noteObj.note = child.getValue(Note.class).note;
+                noteObj.pushId = child.getValue(Note.class).pushId;
                 list.add(noteObj);
             }
         }

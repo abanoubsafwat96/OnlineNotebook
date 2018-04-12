@@ -24,11 +24,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/recycler_top_bottom_vert_padding"
-        android:paddingBottom="@dimen/recycler_top_bottom_vert_padding"
-        android:paddingStart="@dimen/left_right_horiz_padding"
-        android:paddingEnd="@dimen/left_right_horiz_padding"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/recycler_top_bottom_vert_padding"
+        android:paddingEnd="@dimen/left_right_horiz_padding"
+        android:paddingStart="@dimen/left_right_horiz_padding"
+        android:paddingTop="@dimen/recycler_top_bottom_vert_padding"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.abanoub.onlinenotebook.AddingNoteActivity">
 
@@ -53,9 +53,9 @@
                 android:id="@+id/note"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="top"
                 android:hint="@string/write_your_note_here"
-                android:inputType="textMultiLine"
-                android:gravity="top" />
+                android:inputType="textMultiLine" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

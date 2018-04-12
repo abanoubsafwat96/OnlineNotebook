@@ -3,9 +3,11 @@ package com.example.abanoub.onlinenotebook;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 import java.util.Map;
 

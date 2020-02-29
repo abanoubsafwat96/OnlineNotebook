@@ -53,6 +53,15 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         setContentView(R.layout.activity_sign_in);
 
         ButterKnife.bind(this);
@@ -60,7 +69,6 @@ public class SignInActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitleEnabled(true);
         setSupportActionBar(toolbar);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,16 +183,6 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent=new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-    }
     @Override
     public void onBackPressed() {
         moveTaskToBack(true); //exit app
